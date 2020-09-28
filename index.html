@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
   <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
   <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
@@ -58,31 +58,38 @@
       <ons-card onclick="fn.pushPage({'id': 'pullHook.html', 'title': ''})">
         <div class="title">太郎</div>
         <div class="content">26度の日に半そでは寒いですかね？</div><br>
+        <div class="genre">天気・気温</div><br>
         <ons-button>save</ons-button><br>
       </ons-card>
       <ons-card onclick="fn.pushPage({'id': 'dialogs.html', 'title': ''})">
         <div class="title">まる</div>
         <div class="content">はじめてのメイクって何を買ったらいいですか？</div><br>
+        <div class="genre">ブランド</div><br>
         <ons-button>save</ons-button><br>
       </ons-card>
       <ons-card onclick="fn.pushPage({'id': 'buttons.html', 'title': ''})">
         <div class="title">さくら</div>
         <div class="content">低身長で買ったばかりのワンピースの丈が合わないんですが、皆さんどうしてますか？</div><br>
+        <div class="genre">似合わせ</div>
+        <div class="genre">コーディネート</div><br>
         <ons-button>save</ons-button><br>
       </ons-card>
       <ons-card onclick="fn.pushPage({'id': 'carousel.html', 'title': ''})">
         <div class="title">さくら</div>
         <div class="content">雨の日におすすめのヘアアレンジがあれば教えてください！</div><br>
+        <div class="genre">天気・気温</div><br>
         <ons-button>save</ons-button><br>
       </ons-card>
       <ons-card onclick="fn.pushPage({'id': 'infiniteScroll.html', 'title': ''})">
         <div class="title">ちょこれーと</div>
         <div class="content">2回目のデートには、ワンピースとジーンズのどちらがいいと思いますか？？</div><br>
+        <div class="genre">TPO</div><br>
         <ons-button>save</ons-button><br>
       </ons-card>
       <ons-card onclick="fn.pushPage({'id': 'progress.html', 'title': ''})">
-        <div class="title">マイメロLOVE</div>
+        <div class="title">マユメロディ</div>
         <div class="content">ピンクのトップスには、紫のスカートと白のスカートのどっちが合うと思いますか？</div><br>
+        <div class="genre">コーディネート</div><br>
         <ons-button>save</ons-button><br>
       </ons-card>
   
@@ -94,11 +101,27 @@
         }
         ons-card {
           cursor: pointer;
-          color: #333;
+          color:#18465D;
+          border: solid 3px #18465D;
         }
         .card__title,
         .card--material__title {
           font-size: 10px;
+        }
+        .button {
+          color: #18465D;
+          background-color: white;
+          border: solid 2px #18465D;
+          padding: 0px 8px;
+        }
+        .genre{
+          background-color: #F6CD3D;
+          font-size: 12px;
+          width: 90px;
+          padding: 6px 4px 4px;
+          margin: 2px 0px 6px;
+          text-align: center;
+          display: inline-block;
         }
       </style>
     </ons-page>
@@ -153,7 +176,7 @@
                 普通
               </option>
               <option value="Angular">
-                丸み
+                ぽっちゃり
               </option>
             </ons-select>
           </div>
@@ -288,6 +311,10 @@
             古着
           </label>
         </ons-list-item><br><br>
+        <!-- 追加 -->
+        <ons-button modifier="large" class="button-margin" onclick="ons.notification.confirm('設定を更新しますか?')">決定</ons-button>
+        <br><br>
+        <!-- 追加終了 -->
       <script>
         ons.getScriptPage().onInit = function () {
           if (ons.platform.isAndroid()) {
@@ -350,6 +377,9 @@
         .right-label {
           color: #666;
         }
+        .button-margin{
+          box-shadow: 4px 4px  #F6CD3D;
+        }
       </style>
     </ons-page>
   </template>
@@ -359,8 +389,8 @@
   <template id="mypage.html">
     <ons-page>
       <ons-tabbar position="auto">
-        <ons-tab label="質問" page="loadMore.html"></ons-tab>
-        <ons-tab label="回答" page="lazyRepeat.html" active></ons-tab>
+        <ons-tab class="underline" label="質問" page="loadMore.html"></ons-tab>
+        <ons-tab class="underline" label="回答" page="lazyRepeat.html" active></ons-tab>
       </ons-tabbar>
   
       <script>
@@ -370,6 +400,12 @@
       </script>
     </ons-page>
   </template>
+  <style>
+    .underline{
+      color:#18465D;
+      border-bottom: solid 2px #F6CD3D;
+    }
+  </style>
 
 
 
@@ -449,7 +485,7 @@
           <ons-checkbox class="checkbox-color" input-id="checkbox-1" value="Green"></ons-checkbox>
         </label>
         <label class="center" for="checkbox-1">
-          流行
+          トレンド
         </label>
       </ons-list-item>
       <ons-list-item tappable>
@@ -485,7 +521,7 @@
         </label>
       </ons-list-item><br><br>
         
-      <ons-button modifier="large" class="button-margin" onclick="ons.notification.confirm('このまま送信しますか?')">質問を送信</ons-button>
+      <ons-button modifier="large" class="button-margin" onclick="ons.notification.confirm('このまま送信しますか?')">質問を送信</ons-button><br><br>
     </ons-page>
   </template>
 
@@ -541,6 +577,9 @@
       text-align: center;
       margin: 0 auto;
     } */
+    .button-margin{
+          box-shadow: 4px 4px  #F6CD3D;
+        }
   </style>
 
 
@@ -612,7 +651,7 @@
         <ul class="list">
           <li class="list-item">
             <div class="list-item__center">
-              <textarea class="textarea textarea--transparent" placeholder="質問を入力してください"></textarea>
+              <textarea class="textarea textarea--transparent" placeholder="回答を入力してください"></textarea>
             </div>
           </li>
         </ul>
@@ -713,7 +752,13 @@
       </ons-card>
       <ons-card>
         <div class="title">みなみ</div>
-        <ons-input id="name-input"  cols="40" rows="20" maxlength="800" placeholder="回答する"></ons-input><br><br>
+        <ul class="list">
+          <li class="list-item">
+            <div class="list-item__center">
+              <textarea class="textarea textarea--transparent" placeholder="回答を入力してください"></textarea>
+            </div>
+          </li>
+        </ul>
       </ons-card>
       <ons-button modifier="large" class="button-margin" onclick="ons.notification.confirm('このまま送信しますか?')">回答を送信</ons-button>
       <!-- Components -->
@@ -738,15 +783,15 @@
       </ons-card>
       <ons-card>
         <div class="title">みなみ</div>
-        <ons-input id="name-input"  cols="40" rows="20" maxlength="800" placeholder="回答する"></ons-input><br><br>
+        <ul class="list">
+          <li class="list-item">
+            <div class="list-item__center">
+              <textarea class="textarea textarea--transparent" placeholder="回答を入力してください"></textarea>
+            </div>
+          </li>
+        </ul>
       </ons-card>
-      <ons-button tappable modifier="longdivider" onclick="ons.notification.confirm('このまま送信しますか?')">
-        <div class="center">
-          回答を送信
-        </div>
-      </ons-button>
       <section style="margin: 16px">
-        <ons-button modifier="outline" class="button-margin">Outline</ons-button>
         <ons-button modifier="large" class="button-margin" onclick="ons.notification.confirm('このまま送信しますか?')">回答を送信</ons->
       </section>
       <script>
@@ -778,7 +823,13 @@
       </ons-card>
       <ons-card>
         <div class="title">みなみ</div>
-        <ons-input id="name-input"  cols="40" rows="20" maxlength="800" placeholder="回答する"></ons-input><br><br>
+        <ul class="list">
+          <li class="list-item">
+            <div class="list-item__center">
+              <textarea class="textarea textarea--transparent" placeholder="回答を入力してください"></textarea>
+            </div>
+          </li>
+        </ul>
       </ons-card>
       <ons-button tappable modifier="longdivider" onclick="ons.notification.confirm('このまま送信しますか?')">
         <div class="center">
@@ -827,7 +878,7 @@
       <p>すきな服のジャンル：カジュアル、モード</p>
       <ons-card onclick="fn.pushPage({'id': 'pullHook.html', 'title': 'PullHook'})">
         <div class="title">ヨシタケシンノスケ</div>
-        <div class="content">26度の日に半そでは寒いですかね？</div>
+        <div class="content">16度の日に半そでは寒いですかね？</div>
       </ons-card>
       <ons-card onclick="fn.pushPage({'id': 'dialogs.html', 'title': 'Dialogs'})">
         <div class="title">もも</div>
@@ -839,15 +890,15 @@
       </ons-card>
       <ons-card onclick="fn.pushPage({'id': 'carousel.html', 'title': 'Carousel'})">
         <div class="title">ゆうすけ</div>
-        <div class="content">Customizable carousel that can be optionally fullscreen.</div>
+        <div class="content">初デートに来ていく今の時期におすすめの服装を教えてください！！</div>
       </ons-card>
       <ons-card onclick="fn.pushPage({'id': 'infiniteScroll.html', 'title': 'Infinite Scroll'})">
         <div class="title">ぽん</div>
         <div class="content">来週彼氏と水族館でデートに行くのですが、どのような服装で行ったら良いでしょうか？</div>
       </ons-card>
       <ons-card onclick="fn.pushPage({'id': 'progress.html', 'title': 'Progress'})">
-        <div class="title">新しい洋服を買おうと思うのですが、最近のトレンドがわからないので何を買ったらいいかわかりません。買っておいた方がいいアイテムはありますか？</div>
-        <div class="content">Linear progress, circular progress and spinners.</div>
+        <div class="title">AYA</div>
+        <div class="content">新しい洋服を買おうと思うのですが、最近のトレンドがわからないので何を買ったらいいかわかりません。買っておいた方がいいアイテムはありますか？</div>
       </ons-card>
     </ons-page>
   </template>
