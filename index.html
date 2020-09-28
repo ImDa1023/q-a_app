@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+</head>
+<body>
+
+<ons-navigator id="appNavigator" swipeable swipe-target-width="80px">
+    <ons-page>
+      <ons-splitter id="appSplitter">
+        <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="right" collapse="" width="260px"></ons-splitter-side>
+        <ons-splitter-content page="tabbar.html"></ons-splitter-content>
+      </ons-splitter>
+    </ons-page>
+  </ons-navigator>
+  
+  <template id="tabbar.html">
+    <ons-page id="tabbar-page">
+      <ons-toolbar>
+        <div class="center">Home</div>
+        <div class="right">
+          <ons-toolbar-button onclick="fn.toggleMenu()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+      <ons-tabbar swipeable id="appTabbar" position="auto">
+        <ons-tab label="HOME" page="home.html" active></ons-tab>
+        <ons-tab label="MYPAGE" page="mypage.html"></ons-tab>
+        <ons-tab label="SAVE" page="save.html"></ons-tab>
+        <ons-tab label="QUESTION" page="question.html"></ons-tab>
+      </ons-tabbar>
+  
+      <script>
+        ons.getScriptPage().addEventListener('prechange', function(event) {
+          if (event.target.matches('#appTabbar')) {
+            event.currentTarget.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
+          }
+        });
+      </script>
+    </ons-page>
+  </template>
+  
+  <template id="sidemenu.html">
+    <ons-page>
+      <div class="profile-pic">
+        <img src="https://monaca.io/img/logos/download_image_onsenui_01.png">
+      </div>
+    </ons-page>
+  </template>
+  
+  <template id="home.html">
+    <ons-page>
+      <ons-search-input class="search" placeholder="検索"></ons-search-input>
+      <ons-button onclick="fn.pushPage({'id': 'setting.html', 'title': '設定'})">設定</ons-button>
+      <ons-card onclick="fn.pushPage({'id': 'pullHook.html', 'title': ''})">
+        <div class="title">太郎</div>
+        <div class="content">26度の日に半そでは寒いですかね？</div><br>
+        <ons-button>save</ons-button><br>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'dialogs.html', 'title': ''})">
+        <div class="title">まる</div>
+        <div class="content">はじめてのメイクって何を買ったらいいですか？</div><br>
+        <ons-button>save</ons-button><br>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'buttons.html', 'title': ''})">
+        <div class="title">さくら</div>
+        <div class="content">低身長で買ったばかりのワンピースの丈が合わないんですが、皆さんどうしてますか？</div><br>
+        <ons-button>save</ons-button><br>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'carousel.html', 'title': ''})">
+        <div class="title">さくら</div>
+        <div class="content">雨の日におすすめのヘアアレンジがあれば教えてください！</div><br>
+        <ons-button>save</ons-button><br>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'infiniteScroll.html', 'title': ''})">
+        <div class="title">ちょこれーと</div>
+        <div class="content">2回目のデートには、ワンピースとジーンズのどちらがいいと思いますか？？</div><br>
+        <ons-button>save</ons-button><br>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'progress.html', 'title': ''})">
+        <div class="title">マイメロLOVE</div>
+        <div class="content">ピンクのトップスには、紫のスカートと白のスカートのどっちが合うと思いますか？</div><br>
+        <ons-button>save</ons-button><br>
+      </ons-card>
+  
+      <style>
+        .search {
+          text-align: center;
+          padding: 0;
+          margin: 20px;
+        }
+        ons-card {
+          cursor: pointer;
+          color: #333;
+        }
+        .card__title,
+        .card--material__title {
+          font-size: 10px;
+        }
+      </style>
+    </ons-page>
+  </template>
+  
+  <template id="setting.html">
+    <ons-page id="setting-page">
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button>Home</ons-back-button>
+        </div>
+        <div class="center"></div>
+      </ons-toolbar>
+      <ons-list>
+        <ons-list-header>ニックネーム</ons-list-header>
+        <ons-list-item class="input-items">
+          <div class="left">
+            <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
+          </div>
+          <label class="center">
+            <ons-input id="name-input" float maxlength="20" placeholder="ニックネーム"></ons-input>
+        </label>
+        </ons-list-item>
+        <ons-list-header>メールアドレス</ons-list-header>
+        <ons-list-item class="input-items">
+          <label class="center">
+            <ons-input id="name-input" float maxlength="20" placeholder="メールアドレス"></ons-input>
+        </label>
+        </ons-list-item>
+        <!-- <ons-list-header>パスワード再設定</ons-list-header>
+        <ons-list-item class="input-items">
+          <label class="center">
+            <ons-input id="name-input" float maxlength="20" placeholder="パスワード再設定"></ons-input>
+        </label> -->
+        </ons-list-item>
+        <ons-list-header>身長</ons-list-header>
+        <ons-list-item class="input-items">
+          <label class="center">
+            <ons-input id="name-input" float maxlength="20" placeholder="身長"></ons-input>
+            <p>cm</p>
+        </label>
+        </ons-list-item>
+
+        <ons-list-header>体型</ons-list-header>
+        <ons-list-item>
+          <div class="center">
+            <ons-select id="select-input" style="width: 120px">
+              <option value="Vue">
+                細身
+              </option>
+              <option value="React">
+                普通
+              </option>
+              <option value="Angular">
+                丸み
+              </option>
+            </ons-select>
+          </div>
+        </ons-list-item>
+  
+        <ons-list-header>すきな服のジャンル</ons-list-header>
+        <ons-list-item tappable>
+          <label class="left">
+            <ons-checkbox class="checkbox-color" input-id="checkbox-0" value="Red"></ons-checkbox>
+          </label>
+          <label class="center" for="checkbox-0">
+            カジュアル
+          </label>
+        </ons-list-item>
+        <ons-list-item tappable>
+          <label class="left">
+            <ons-checkbox class="checkbox-color" input-id="checkbox-1" value="Green"></ons-checkbox>
+          </label>
+          <label class="center" for="checkbox-1">
+            きれいめ
+          </label>
+        </ons-list-item>
+        <ons-list-item tappable>
+          <label class="left">
+            <ons-checkbox class="checkbox-color" input-id="checkbox-2" value="Blue"></ons-checkbox>
+          </label>
+          <label class="center" for="checkbox-2">
+            キレカジ
+          </label>
+        </ons-list-item>
+        <ons-list-item tappable>
+          <label class="left">
+            <ons-checkbox class="checkbox-color" input-id="checkbox-3" value="Blue"></ons-checkbox>
+          </label>
+          <label class="center" for="checkbox-3">
+            モード
+          </label>
+        </ons-list-item>
+        <ons-list-item tappable>
+          <label class="left">
+            <ons-checkbox class="checkbox-color" input-id="checkbox-4" value="Blue"></ons-checkbox>
+          </label>
+          <label class="center" for="checkbox-4">
+            ガーリー
+          </label>
+        </ons-list-item>
+        <ons-list-item tappable>
+          <label class="left">
+            <ons-checkbox class="checkbox-color" input-id="checkbox-5" value="Blue"></ons-checkbox>
+          </label>
+          <label class="center" for="checkbox-5">
+            コンサバ
+          </label>
+        </ons-list-item>
+        <ons-list-item tappable>
+          <label class="left">
+            <ons-checkbox class="checkbox-color" input-id="checkbox-6" value="Blue"></ons-checkbox>
+          </label>
+          <label class="center" for="checkbox-6">
+            ナチュラル
+          </label>
+        </ons-list-item>
+        <ons-list-item tappable>
+          <label class="left">
+            <ons-checkbox class="checkbox-color" input-id="checkbox-7" value="Blue"></ons-checkbox>
+          </label>
+          <label class="center" for="checkbox-7">
+            原宿系
+          </label>
+        </ons-list-item>
+        <ons-list-item tappable>
+          <label class="left">
+            <ons-checkbox class="checkbox-color" input-id="checkbox-8" value="Blue"></ons-checkbox>
+          </label>
+          <label class="center" for="checkbox-8">
+            渋谷系
+          </label>
+        </ons-list-item>
+        <ons-list-item tappable>
+          <label class="left">
+            <ons-checkbox class="checkbox-color" input-id="checkbox-9" value="Blue"></ons-checkbox>
+          </label>
+          <label class="center" for="checkbox-9">
+            ストリート
+          </label>
+        </ons-list-item>
+        <ons-list-item tappable>
+          <label class="left">
+            <ons-checkbox class="checkbox-color" input-id="checkbox-10" value="Blue"></ons-checkbox>
+          </label>
+          <label class="center" for="checkbox-10">
+            ノームコア
+          </label>
+        </ons-list-item>
+        <ons-list-item tappable>
+          <label class="left">
+            <ons-checkbox class="checkbox-color" input-id="checkbox-11" value="Blue"></ons-checkbox>
+          </label>
+          <label class="center" for="checkbox-11">
+            アウトドア
+          </label>
+        </ons-list-item>
+        <ons-list-item tappable>
+          <label class="left">
+            <ons-checkbox class="checkbox-color" input-id="checkbox-12" value="Blue"></ons-checkbox>
+          </label>
+          <label class="center" for="checkbox-12">
+            サーフ系
+          </label>
+        </ons-list-item>
+        <ons-list-item tappable>
+          <label class="left">
+            <ons-checkbox class="checkbox-color" input-id="checkbox-13" value="Blue"></ons-checkbox>
+          </label>
+          <label class="center" for="checkbox-13">
+            スポーツミックス
+          </label>
+        </ons-list-item>
+        <ons-list-item tappable>
+          <label class="left">
+            <ons-checkbox class="checkbox-color" input-id="checkbox-14" value="Blue"></ons-checkbox>
+          </label>
+          <label class="center" for="checkbox-14">
+            トラッド
+          </label>
+        </ons-list-item>
+        <ons-list-item tappable>
+          <label class="left">
+            <ons-checkbox class="checkbox-color" input-id="checkbox-15" value="Blue"></ons-checkbox>
+          </label>
+          <label class="center" for="checkbox-15">
+            古着
+          </label>
+        </ons-list-item><br><br>
+      <script>
+        ons.getScriptPage().onInit = function () {
+          if (ons.platform.isAndroid()) {
+            const inputItems = document.querySelectorAll('.input-items');
+            for (i = 0; i < inputItems.length; i++) {
+              inputItems[i].hasAttribute('modifier') ?
+                inputItems[i].setAttribute('modifier', inputItems[i].getAttribute('modifier') + ' nodivider') :
+                inputItems[i].setAttribute('modifier', 'nodivider');
+            }
+          }
+          var nameInput = document.getElementById('name-input');
+          var searchInput = document.getElementById('search-input');
+          var updateInputs = function (event) {
+            nameInput.value = event.target.value;
+            searchInput.value = event.target.value;
+            document.getElementById('name-display').innerHTML = event.target.value !== '' ? `Hello ${event.target.value}!` : 'Hello anonymous!';
+          }
+          nameInput.addEventListener('input', updateInputs);
+          searchInput.addEventListener('input', updateInputs);
+          document.getElementById('model-switch').addEventListener('change', function (event) {
+            if (event.value) {
+              document.getElementById('switch-status').innerHTML = `&nbsp;(on)`;
+              document.getElementById('enabled-label').innerHTML = `Enabled switch`;
+              document.getElementById('disabled-switch').disabled = false;
+            } else {
+              document.getElementById('switch-status').innerHTML = `&nbsp;(off)`;
+              document.getElementById('enabled-label').innerHTML = `Disabled switch`;
+              document.getElementById('disabled-switch').disabled = true;
+            }
+          });
+          }
+          var currentColors = ['Green', 'Blue'];
+          const checkboxes = document.querySelectorAll('.checkbox-color')
+          for (var i = 0; i < checkboxes.length; i++) {
+            var checkbox = checkboxes[i];
+            checkbox.addEventListener('change', function (event) {
+              if (!currentColors.includes(event.target.value)) {
+                currentColors.push(event.target.value);
+              } else {
+                var index = currentColors.indexOf(event.target.value);
+                currentColors.splice(index, 1);
+              }
+              document.getElementById('checkboxes-header').innerHTML = currentColors;
+            })
+          }
+          document.getElementById('range-slider').addEventListener('input', function (event) {
+            document.getElementById('volume-value').innerHTML = `&nbsp;${event.target.value}`;
+            if (event.target.value > 80) {
+              document.getElementById('careful-message').style.display = 'inline-block';
+            } else {
+              document.getElementById('careful-message').style.display = 'none';
+            }
+          })
+      </script>
+  
+      <style>
+        .right-icon {
+          margin-left: 10px;
+        }
+        .right-label {
+          color: #666;
+        }
+      </style>
+    </ons-page>
+  </template>
+  
+
+
+  <template id="mypage.html">
+    <ons-page>
+      <ons-tabbar position="auto">
+        <ons-tab label="質問" page="loadMore.html"></ons-tab>
+        <ons-tab label="回答" page="lazyRepeat.html" active></ons-tab>
+      </ons-tabbar>
+  
+      <script>
+        ons.getScriptPage().onInit = function () {
+          this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+        }
+      </script>
+    </ons-page>
+  </template>
+
+
+
+
+  <template id="save.html">
+    <ons-page>
+      <!-- <p class="intro">
+         あなたの保存した質問<br><br>
+      </p> -->
+      <ons-card onclick="fn.pushPage({'id': 'pullHook.html', 'title': ''})">
+        <div class="title">太郎</div>
+        <div class="content">26度の日に半そでは寒いですかね？</div>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'dialogs.html', 'title': 'Dialogs'})">
+        <div class="title">まる</div>
+        <div class="content">はじめてのメイクって何を買ったらいいですか？</div>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'buttons.html', 'title': 'Buttons'})">
+        <div class="title">さくら</div>
+        <div class="content">低身長で買ったばかりのワンピースの丈が合わないんですが、皆さんどうしてますか？</div>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'carousel.html', 'title': 'Carousel'})">
+        <div class="title">さくら</div>
+        <div class="content">雨の日におすすめのヘアアレンジがあれば教えてください！</div>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'infiniteScroll.html', 'title': 'Infinite Scroll'})">
+        <div class="title">ちょこれーと</div>
+        <div class="content">2回目のデートには、ワンピースとジーンズのどちらがいいと思いますか？？</div>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'progress.html', 'title': 'Progress'})">
+        <div class="title">マイメロLOVE</div>
+        <div class="content">ピンクのトップスには、紫のスカートと白のスカートのどっちが合うと思いますか？</div>
+      </ons-card>
+  
+      <style>
+        .intro {
+          text-align: center;
+          padding: 0 20px;
+          margin-top: 40px;
+        }
+        ons-card {
+          cursor: pointer;
+          color: #333;
+        }
+        .card__title,
+        .card--material__title {
+          font-size: 20px;
+        }
+      </style>
+    </ons-page>
+  </template>
+
+
+
+
+
+  <template id="question.html">
+    <ons-page>
+      <ul class="list">
+        <li class="list-item">
+          <div class="list-item__center">
+            <textarea class="textarea textarea--transparent" placeholder="質問を入力してください"></textarea>
+          </div>
+        </li>
+      </ul>
+      <p class="question_text">質問に該当するジャンルを選択してください</p>
+      <ons-list-item tappable>
+        <label class="left">
+          <ons-checkbox class="checkbox-color" input-id="checkbox-0" value="Red"></ons-checkbox>
+        </label>
+        <label class="center" for="checkbox-0">
+          天気・気温
+        </label>
+      </ons-list-item>
+      <ons-list-item tappable>
+        <label class="left">
+          <ons-checkbox class="checkbox-color" input-id="checkbox-1" value="Green"></ons-checkbox>
+        </label>
+        <label class="center" for="checkbox-1">
+          流行
+        </label>
+      </ons-list-item>
+      <ons-list-item tappable>
+        <label class="left">
+          <ons-checkbox class="checkbox-color" input-id="checkbox-2" value="Blue"></ons-checkbox>
+        </label>
+        <label class="center" for="checkbox-2">
+          コーディネート
+        </label>
+      </ons-list-item>
+      <ons-list-item tappable>
+        <label class="left">
+          <ons-checkbox class="checkbox-color" input-id="checkbox-3" value="Blue"></ons-checkbox>
+        </label>
+        <label class="center" for="checkbox-3">
+          似合わせ
+        </label>
+      </ons-list-item>
+      <ons-list-item tappable>
+        <label class="left">
+          <ons-checkbox class="checkbox-color" input-id="checkbox-4" value="Blue"></ons-checkbox>
+        </label>
+        <label class="center" for="checkbox-4">
+          TPO
+        </label>
+      </ons-list-item>
+      <ons-list-item tappable>
+        <label class="left">
+          <ons-checkbox class="checkbox-color" input-id="checkbox-5" value="Blue"></ons-checkbox>
+        </label>
+        <label class="center" for="checkbox-5">
+          ブランド
+        </label>
+      </ons-list-item><br><br>
+        
+      <ons-button modifier="large" class="button-margin" onclick="ons.notification.confirm('このまま送信しますか?')">質問を送信</ons-button>
+    </ons-page>
+  </template>
+
+  <script>
+    ons.getScriptPage().onInit = function () {
+      this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+      var toolbarButton = ons.platform.isAndroid() ? ons.createElement(`<ons-icon icon="md-more-vert"></ons-icon>`) : ons.createElement(`<span>More</span>`);
+      var infoButton = document.getElementById('info-button');
+      infoButton.appendChild(toolbarButton);
+      var toastDialog = document.getElementById('toast-dialog');
+      toastDialog.parentNode.removeChild(toastDialog);
+      document.getElementById('dialogs-page').appendChild(toastDialog);
+      var timeoutID = 0;
+      window.fn.showDialog = function (id) {
+        var elem = document.getElementById(id);
+        if (id === 'popover-dialog') {
+          elem.show(infoButton);
+        } else {
+          elem.show();
+          if (id === 'modal-dialog') {
+            clearTimeout(timeoutID);
+            timeoutID = setTimeout(function() { fn.hideDialog(id) }, 2000);
+          }
+        }
+      };
+      window.fn.hideDialog = function (id) {
+        document.getElementById(id).hide();
+      };
+    document.getElementById('appNavigator').topPage.onDestroy = function () {
+      var toastDialog = document.getElementById('toast-dialog');
+      toastDialog.parentNode.removeChild(toastDialog);
+      document.querySelector('#dialogs-page .page__content').appendChild(toastDialog);
+    }
+  }
+  </script>
+
+  <style>
+    #lorem-dialog .dialog-container {
+      height: 200px;
+    }
+    ons-list-title {
+      margin-top: 20px;
+    }
+    .textarea{
+      height: 300px;
+      width: 450px;
+    }
+    .question_text{
+      text-align: center;
+      margin-top: 30px;
+    }
+    /* .center{
+      text-align: center;
+      margin: 0 auto;
+    } */
+  </style>
+
+
+
+<template id="answer.html">
+  <ons-page>
+    <ons-input id="name-input"  cols="40" rows="20" maxlength="800" placeholder="質問してみよう"></ons-input><br><br>
+    
+    <ons-button modifier="large" class="button-margin" onclick="ons.notification.confirm('このまま送信しますか?')">回答を送信</ons-button>
+  </ons-page>
+</template>
+<script>
+  ons.getScriptPage().onInit = function () {
+    this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+    var toolbarButton = ons.platform.isAndroid() ? ons.createElement(`<ons-icon icon="md-more-vert"></ons-icon>`) : ons.createElement(`<span>More</span>`);
+    var infoButton = document.getElementById('info-button');
+    infoButton.appendChild(toolbarButton);
+    var toastDialog = document.getElementById('toast-dialog');
+    toastDialog.parentNode.removeChild(toastDialog);
+    document.getElementById('dialogs-page').appendChild(toastDialog);
+    var timeoutID = 0;
+    window.fn.showDialog = function (id) {
+      var elem = document.getElementById(id);
+      if (id === 'popover-dialog') {
+        elem.show(infoButton);
+      } else {
+        elem.show();
+        if (id === 'modal-dialog') {
+          clearTimeout(timeoutID);
+          timeoutID = setTimeout(function() { fn.hideDialog(id) }, 2000);
+        }
+      }
+    };
+    window.fn.hideDialog = function (id) {
+      document.getElementById(id).hide();
+    };
+  document.getElementById('appNavigator').topPage.onDestroy = function () {
+    var toastDialog = document.getElementById('toast-dialog');
+    toastDialog.parentNode.removeChild(toastDialog);
+    document.querySelector('#dialogs-page .page__content').appendChild(toastDialog);
+  }
+}
+</script>
+<style>
+  #lorem-dialog .dialog-container {
+    height: 200px;
+  }
+  ons-list-title {
+    margin-top: 20px;
+  }
+</style>
+
+
+
+  <template id="pullHook.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button>Home</ons-back-button>
+        </div>
+        <div class="center"></div>
+      </ons-toolbar>
+      <ons-card>
+        <div class="title">太郎</div>
+        <div class="content">26度の日に半そでは寒いですかね？</div>
+      </ons-card>
+      <ons-card>
+        <div class="title">みなみ</div>
+        <ul class="list">
+          <li class="list-item">
+            <div class="list-item__center">
+              <textarea class="textarea textarea--transparent" placeholder="質問を入力してください"></textarea>
+            </div>
+          </li>
+        </ul>
+      </ons-card>
+      <ons-button modifier="large" class="button-margin" onclick="ons.notification.confirm('このまま送信しますか?')">回答を送信</ons-button>
+      <script>
+        ons.getScriptPage().onInit = function () {
+          this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+          var pullHook = document.getElementById('pull-hook');
+          var icon = document.getElementById('pull-hook-icon');
+          pullHook.addEventListener('changestate', function (event) {
+            switch (event.state) {
+              case 'initial':
+                icon.setAttribute('icon', 'fa-arrow-down');
+                icon.removeAttribute('rotate');
+                icon.removeAttribute('spin');
+                break;
+              case 'preaction':
+                icon.setAttribute('icon', 'fa-arrow-down');
+                icon.setAttribute('rotate', '180');
+                icon.removeAttribute('spin');
+                break;
+              case 'action':
+                icon.setAttribute('icon', 'fa-spinner');
+                icon.removeAttribute('rotate');
+                icon.setAttribute('spin', true);
+                break;
+            }
+          });
+          var getRandomName = function () {
+            const names = ['Oscar', 'Max', 'Tiger', 'Sam', 'Misty', 'Simba', 'Coco', 'Chloe', 'Lucy', 'Missy'];
+            return names[Math.floor(Math.random() * names.length)];
+          };
+          var getRandomUrl = function () {
+            const width = 40 + Math.floor(20 * Math.random());
+            const height = 40 + Math.floor(20 * Math.random());
+            return `https://placekitten.com/g/${width}/${height}`;
+          };
+          var getRandomKitten = function () {
+            return {
+              name: getRandomName(),
+              url: getRandomUrl()
+            };
+          };
+          var getRandomData = function () {
+            const data = [];
+            for (var i = 0; i < 8; i++) {
+              data.push(getRandomKitten());
+            }
+            return data;
+          };
+          var createKitten = function (kitten) {
+            return ons.createElement(`
+                <ons-list-item>
+                  <div class="left">
+                    <img class="list-item__thumbnail" src="${kitten.url}">
+                  </div>
+                  <div class="center">${kitten.name}</div>
+                </ons-list-item>
+              `
+            );
+          };
+          var kittens = getRandomData();
+          for (kitty of kittens) {
+            var kitten = createKitten(kitty);
+            document.getElementById('kitten-list').appendChild(kitten);
+          };
+          pullHook.onAction = function (done) {
+            setTimeout(function() {
+              document.getElementById('kitten-list').appendChild(createKitten(getRandomKitten()));
+              done();
+            }, 400);
+          }
+        };
+      </script>
+      <style>
+        .pull-hook-content {
+          color: #666;
+          transition: transform .25s ease-in-out;
+        }
+      </style>
+    </ons-page>
+  </template>
+  
+
+
+  <template id="dialogs.html">
+    <ons-page id="dialogs-page">
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button>Home</ons-back-button>
+        </div>
+        <div class="center"></div>
+      </ons-toolbar>
+      <ons-card>
+        <div class="title">まる</div>
+        <div class="content">はじめてのメイクって何を買ったらいいですか？</div>
+      </ons-card>
+      <ons-card>
+        <div class="title">みなみ</div>
+        <ons-input id="name-input"  cols="40" rows="20" maxlength="800" placeholder="回答する"></ons-input><br><br>
+      </ons-card>
+      <ons-button modifier="large" class="button-margin" onclick="ons.notification.confirm('このまま送信しますか?')">回答を送信</ons-button>
+      <!-- Components -->
+      <ons-toast id="toast-dialog" animation="fall">Supercalifragilisticexpialidocious<button onclick="fn.hideDialog('toast-dialog')">No way</button></ons-toast>
+    </ons-page>
+  </template>
+  
+
+
+
+  <template id="buttons.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button>Home</ons-back-button>
+        </div>
+        <div class="center"></div>
+      </ons-toolbar>
+      <ons-card>
+        <div class="title">さくら</div>
+        <div class="content">低身長でワンピースの丈がなかなか合わないんですが、皆さんどうしてますか？</div>
+      </ons-card>
+      <ons-card>
+        <div class="title">みなみ</div>
+        <ons-input id="name-input"  cols="40" rows="20" maxlength="800" placeholder="回答する"></ons-input><br><br>
+      </ons-card>
+      <ons-button tappable modifier="longdivider" onclick="ons.notification.confirm('このまま送信しますか?')">
+        <div class="center">
+          回答を送信
+        </div>
+      </ons-button>
+      <section style="margin: 16px">
+        <ons-button modifier="outline" class="button-margin">Outline</ons-button>
+        <ons-button modifier="large" class="button-margin" onclick="ons.notification.confirm('このまま送信しますか?')">回答を送信</ons->
+      </section>
+      <script>
+        ons.getScriptPage().onInit = function () {
+          this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+        }
+      </script>
+      <style>
+        .button-margin {
+          margin: 6px 0;
+        }
+      </style>
+    </ons-page>
+  </template>
+  
+
+
+  <template id="carousel.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button>Home</ons-back-button>
+        </div>
+        <div class="center"></div>
+      </ons-toolbar>
+      <ons-card>
+        <div class="title">さくら</div>
+        <div class="content">雨の日におすすめのヘアアレンジがあれば教えてください！</div>
+      </ons-card>
+      <ons-card>
+        <div class="title">みなみ</div>
+        <ons-input id="name-input"  cols="40" rows="20" maxlength="800" placeholder="回答する"></ons-input><br><br>
+      </ons-card>
+      <ons-button tappable modifier="longdivider" onclick="ons.notification.confirm('このまま送信しますか?')">
+        <div class="center">
+          回答を送信
+        </div>
+      </ons-button>
+    </ons-page>
+  </template>
+  
+
+
+  <template id="loadMore.html">
+    <!-- Load more items on scroll bottom -->
+    <ons-page id="load-more-page" on-infinite-scroll="fn.loadMore">
+      <p>ニックネーム：みなみ</p>
+      <p>158.2cm</p>
+      <p>細身</p>
+      <p>すきな服のジャンル：カジュアル、モード</p>
+      <ons-card onclick="fn.pushPage({'id': 'pullHook.html', 'title': 'PullHook'})">
+        <div class="title">みなみ</div>
+        <div class="content">ピンクメイクで目元が腫れて見えないようにするにはどうしたいいと思いますか？</div>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'dialogs.html', 'title': 'Dialogs'})">
+        <div class="title">みなみ</div>
+        <div class="content">マスカラとビューラーどちらを先にするのがいいと思いますか？</div>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'buttons.html', 'title': 'Buttons'})">
+        <div class="title">みなみ</div>
+        <div class="content">白ボトムに合わせるのは何色のトップスがいいと思いますか？</div>
+      </ons-card>
+      <style>
+        .after-list {
+          margin: 20px;
+          text-align: center;
+        }
+      </style>
+    </ons-page>
+  </template>
+  
+  <template id="lazyRepeat.html">
+    <!-- Lazy load thousands of items -->
+    <ons-page id="lazy-repeat-page">
+      <p>ニックネーム：みなみ</p>
+      <p>158.2cm</p>
+      <p>細身</p>
+      <p>すきな服のジャンル：カジュアル、モード</p>
+      <ons-card onclick="fn.pushPage({'id': 'pullHook.html', 'title': 'PullHook'})">
+        <div class="title">ヨシタケシンノスケ</div>
+        <div class="content">26度の日に半そでは寒いですかね？</div>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'dialogs.html', 'title': 'Dialogs'})">
+        <div class="title">もも</div>
+        <div class="content">はじめてのメイクって何を買ったらいいですか？</div>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'buttons.html', 'title': 'Buttons'})">
+        <div class="title">まみ</div>
+        <div class="content">低身長で買ったばかりのワンピースの丈が合わないんですが、皆さんどうしてますか？</div>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'carousel.html', 'title': 'Carousel'})">
+        <div class="title">ゆうすけ</div>
+        <div class="content">Customizable carousel that can be optionally fullscreen.</div>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'infiniteScroll.html', 'title': 'Infinite Scroll'})">
+        <div class="title">ぽん</div>
+        <div class="content">来週彼氏と水族館でデートに行くのですが、どのような服装で行ったら良いでしょうか？</div>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'progress.html', 'title': 'Progress'})">
+        <div class="title">新しい洋服を買おうと思うのですが、最近のトレンドがわからないので何を買ったらいいかわかりません。買っておいた方がいいアイテムはありますか？</div>
+        <div class="content">Linear progress, circular progress and spinners.</div>
+      </ons-card>
+    </ons-page>
+  </template>
+  
+
+
+  <template id="infiniteScroll.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button>Home</ons-back-button>
+        </div>
+        <div class="center"></div>
+      </ons-toolbar>
+      <ons-tabbar position="auto">
+        <ons-tab label="質問" page="loadMore.html"></ons-tab>
+        <ons-tab label="回答" page="lazyRepeat.html" active></ons-tab>
+      </ons-tabbar>
+      <script>
+        ons.getScriptPage().onInit = function () {
+          this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+        }
+      </script>
+    </ons-page>
+  </template>
+
+
+
+  <template id="progress.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button>Home</ons-back-button>
+        </div>
+        <div class="center"></div>
+      </ons-toolbar>
+  
+      <script>
+        ons.getScriptPage().onInit = function () {
+          this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+          if (!ons.platform.isAndroid()) {
+            const progressStyle = document.querySelectorAll('.progressStyle');
+            for (progress of progressStyle) {
+              progress.hasAttribute('modifier') ?
+                progress.setAttribute('modifier', progress.getAttribute('modifier') + ' ios') :
+                progress.setAttribute('modifier', 'ios');
+            }
+          }
+          var progressStatus = document.getElementById('progress-status');
+          var progressValue = document.getElementById('progress-value');
+          var intervalID = 0;
+          intervalID = setInterval(function() {
+            if (progressValue.value === 100) {
+              clearInterval(intervalID);
+              return;
+            }
+            progressValue.value++;
+            progressStatus.innerHTML = `Progress: ${progressValue.value}%`;
+          }, 40);
+        }
+      </script>
+  
+      <style>
+        /* 'ios' modifier */
+        .progress-bar--ios__primary,
+        .progress-bar--ios.progress-bar--indeterminate::before,
+        .progress-bar--ios.progress-bar--indeterminate::after {
+          background-color: #4282cc
+        }
+        .progress-bar--ios__secondary {
+          background-color: #87b6eb;
+        }
+        .progress-circular--ios__primary {
+          stroke: #4282cc
+        }
+        .progress-circular--ios__secondary {
+          stroke: #87b6eb;
+        }
+      </style>
+    </ons-page>
+  </template>
+  
+
+
+  <template id="transition.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button>SAVE</ons-back-button>
+        </div>
+        <div class="center"></div>
+      </ons-toolbar>
+      <p style="text-align: center">
+        Use the VOnsBackButton
+      </p>
+      <script>
+        ons.getScriptPage().onInit = function () {
+          this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+        }
+      </script>
+    </ons-page>
+  </template>
+  <style>
+    ons-splitter-side[animation=overlay] {
+      border-left: 1px solid #bbb;
+    }
+  </style>
+  <script>
+    window.fn = {};
+
+    window.fn.toggleMenu = function () {
+      document.getElementById('appSplitter').right.toggle();
+    };
+
+    window.fn.loadView = function (index) {
+      document.getElementById('appTabbar').setActiveTab(index);
+      document.getElementById('sidemenu').close();
+    };
+
+    window.fn.loadLink = function (url) {
+      window.open(url, '_blank');
+    };
+
+    window.fn.pushPage = function (page, anim) {
+      if (anim) {
+        document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title }, animation: anim });
+      } else {
+        document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
+      }
+    };
+  </script>
+</body>
+</html>
